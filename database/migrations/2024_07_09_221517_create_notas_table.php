@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('Examen1');
             $table->integer('Examen2');
             $table->integer('ExamenFinal');
+            $table->string('imagen');
+
         });
     }
 

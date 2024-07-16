@@ -12,7 +12,8 @@ class NotasControlador extends Controller
      */
     public function index()
     {
-        //
+        $course = Notas::all();
+        return view('notas.index', compact('course'));
     }
 
     /**
@@ -33,6 +34,9 @@ class NotasControlador extends Controller
         $course->Examen1 = $request->input('Examen1');
         $course->Examen2 = $request->input('Examen2');
         $course->ExamenFinal = $request->input('ExamenFinal');
+        if($request->hasFile('imagen')){
+            $course->imagen = $request->file('imagen')->store('public/notas');
+        }
         $course->save();
         return 'Guardado exitoso';
     }
@@ -42,7 +46,8 @@ class NotasControlador extends Controller
      */
     public function show(string $id)
     {
-        //
+        $course = Notas::find($id);
+        return view('notas.show', compact('course'));
     }
 
     /**

@@ -18,7 +18,7 @@
 </style>
 
 <div class="form-container">
-    <form action="/notas" method="POST">
+    <form action="/notas" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="codigo" class="form-label">Código</label>
@@ -39,6 +39,12 @@
             <label for="ExamenFinal" class="form-label">Examen Final</label>
             <input type="number" class="form-control" id="ExamenFinal" name="ExamenFinal" placeholder="Ingrese la nota del Examen Final" min="0" max="100" required>
             <div class="form-text">Nota del examen final (0-100).</div>
+        </div>
+        <div class="mb-3">
+            <label for="imagen" class="form-label">Cargar foto del alumno</label>
+            <br>
+            <input type="file" name="imagen" >
+
         </div>
         <button type="submit" class="btn btn-primary">Enviar</button>
     </form>
