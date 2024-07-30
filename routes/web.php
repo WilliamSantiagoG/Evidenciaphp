@@ -15,3 +15,5 @@ Route::get('/saludo', function () {
 Route::get('/mensaje', [Controladorproyecto::class, 'mensaje']);
 
 Route::resource('/notas' , NotasControlador::class);
+
+

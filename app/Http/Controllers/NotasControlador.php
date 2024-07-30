@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Notas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class NotasControlador extends Controller
 {
@@ -55,7 +56,10 @@ class NotasControlador extends Controller
      */
     public function edit(string $id)
     {
+        $course = Notas::find($id);
+        return view('notas.edit', compact('course'));
         //
+
     }
 
     /**
@@ -64,6 +68,13 @@ class NotasControlador extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $course = Notas::find($id);
+        $course->fill($request->except('imagen'));
+        if ($request->hasFile('imagen')){ //si desde ese campo viene un archivo hacer:
+            $course->imagen = $request->file('imagen')->store('public/cursos');
+            $course->save();
+            return 'Curso actualizado';
+        }
     }
 
     /**
@@ -71,6 +82,17 @@ class NotasControlador extends Controller
      */
     public function destroy(string $id)
     {
-        //
+    $course = Notas::find($id);
+
+    // Elimina la imagen asociada si existe
+    if ($course->imagen) {
+        Storage::delete($course->imagen);
     }
+
+    $course->delete();
+
+    return redirect()->route('notas.index')->with('success', 'Registro eliminado exitosamente');
+    }
+
+
 }
